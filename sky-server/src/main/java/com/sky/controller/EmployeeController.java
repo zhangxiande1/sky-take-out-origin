@@ -102,5 +102,23 @@ public class EmployeeController {
         return Result.success();
     }
 
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查询员工接口")
+    public Result<Employee> getById(@PathVariable Long id){
+        Employee employee = employeeService.getById(id);
+
+        return Result.success(employee);
+    }
+
+
+    @PutMapping("")
+    @ApiOperation("员工信息编辑")
+    public Result updateEmployee(@RequestBody Employee employee){
+        employeeService.updaEmployee(employee);
+
+        return Result.success();
+    }
+
+
 
 }
