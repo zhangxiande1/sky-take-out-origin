@@ -6,11 +6,13 @@ import com.sky.constant.StatusConstant;
 import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
+import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 import com.sky.exception.AccountLockedException;
 import com.sky.exception.AccountNotFoundException;
 import com.sky.exception.PasswordErrorException;
 import com.sky.mapper.EmployeeMapper;
+import com.sky.result.PageResult;
 import com.sky.service.EmployeeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ import org.springframework.util.DigestUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -84,6 +88,40 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.insert(employee);
+
+
+    }
+
+    /**
+     * 员工的分页查询
+     * @param employeePageQueryDTO
+     */
+    @Override
+    public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
+        //获取数据库中员工总条数
+        Long counts = employeeMapper.getCounts();
+        //获取页面大小
+        int pageSize = employeePageQueryDTO.getPageSize();
+        int page = employeePageQueryDTO.getPage();
+        String username = employeePageQueryDTO.getName();
+       if (username!=null && username !=" "){
+           Employee employee = employeeMapper.getByUsernameLike(username);
+           List<Employee> list = new ArrayList<>();
+           list.add(employee);
+           return new PageResult(counts,list);
+       }
+       else {
+           //计算起始索引
+           Integer start = (page - 1)*pageSize;
+           //获取分页查询结果列表
+           List<Employee> list = employeeMapper.list(start, start+pageSize);
+
+           PageResult pageResult = new PageResult(counts,list);
+           return pageResult;
+       }
+
+
+
     }
 
 }
