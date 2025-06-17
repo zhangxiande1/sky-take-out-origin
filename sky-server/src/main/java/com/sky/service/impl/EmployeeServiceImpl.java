@@ -104,6 +104,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         int pageSize = employeePageQueryDTO.getPageSize();
         int page = employeePageQueryDTO.getPage();
         String username = employeePageQueryDTO.getName();
+        //如果是根据username进行查询
        if (username!=null && username !=" "){
            Employee employee = employeeMapper.getByUsernameLike(username);
            List<Employee> list = new ArrayList<>();
@@ -122,6 +123,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
 
+    }
+
+    /**
+     * 员工启用禁用
+     * @param status
+     * @param id
+     */
+    @Override
+    public void startOrStop(Integer status, Long id) {
+        Employee employee = new Employee();
+        employee.setStatus(status);
+        employee.setId(id);
+
+        employeeMapper.update(employee);
     }
 
 }

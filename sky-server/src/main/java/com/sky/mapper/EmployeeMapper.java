@@ -43,4 +43,7 @@ public interface EmployeeMapper {
 
     @Select("select * from employee where username LIKE CONCAT('%', #{username}, '%')")
     Employee getByUsernameLike(String username);
+
+
+    void update(Employee employee);
 }
