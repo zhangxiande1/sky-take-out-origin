@@ -1,5 +1,6 @@
 package com.sky.service.impl;
 
+import com.sky.annotation.AutoFill;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.PasswordConstant;
 import com.sky.constant.StatusConstant;
@@ -8,6 +9,7 @@ import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
+import com.sky.enumeration.OperationType;
 import com.sky.exception.AccountLockedException;
 import com.sky.exception.AccountNotFoundException;
 import com.sky.exception.PasswordErrorException;
@@ -72,6 +74,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param employeeDTO
      */
     @Override
+    @AutoFill(value = OperationType.INSERT)
     public void save(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
         //将employeeDTO中的属性拷贝到employee中去
@@ -145,6 +148,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param employee
      */
     @Override
+    @AutoFill(value = OperationType.UPDATE)
     public void updaEmployee(Employee employee) {
 //        employee.setUpdateTime(LocalDateTime.now());
 //        employee.setUpdateUser(BaseContext.getCurrentId());
