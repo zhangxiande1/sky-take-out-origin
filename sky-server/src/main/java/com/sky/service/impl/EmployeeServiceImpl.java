@@ -74,7 +74,6 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param employeeDTO
      */
     @Override
-    @AutoFill(value = OperationType.INSERT)
     public void save(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
         //将employeeDTO中的属性拷贝到employee中去
@@ -148,7 +147,6 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param employee
      */
     @Override
-    @AutoFill(value = OperationType.UPDATE)
     public void updaEmployee(Employee employee) {
 //        employee.setUpdateTime(LocalDateTime.now());
 //        employee.setUpdateUser(BaseContext.getCurrentId());
