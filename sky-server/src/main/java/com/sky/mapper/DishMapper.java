@@ -4,6 +4,7 @@ import com.sky.annotation.AutoFill;
 import com.sky.entity.Dish;
 import com.sky.enumeration.OperationType;
 import com.sky.vo.DishVO;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -29,4 +30,15 @@ public interface DishMapper {
 
     @Select("select count(*) from dish")
     Integer getCounts();
+
+    @Select("select * from dish where id = #{id}")
+    Dish getById(Long id);
+
+    List<Long> getSetmealIdsByDishIds(List<Long> ids);
+
+    @Delete("delete from dish where id = #{id}")
+    void deleteById(Long id);
+
+    @Delete("delete from dish_flavor where dish_id = #{id}")
+    void deleteByDishId(Long id);
 }
