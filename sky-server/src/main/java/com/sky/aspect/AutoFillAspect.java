@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 @Slf4j
 public class AutoFillAspect {
 
+    //该注释只能用于com.sky.mapper下类的方法中并且得有AutoFill注释
     @Pointcut("execution(* com.sky.mapper.*.*(..)) && @annotation(com.sky.annotation.AutoFill)")
     public void autoFillPointCut(){}
 

@@ -91,4 +91,19 @@ public interface DishMapper {
      */
     @AutoFill(OperationType.UPDATE)
     void update(Dish dish);
+
+    /**
+     * 查询套餐关联的菜品数量
+     * @param dish
+     * @return
+     */
+    List<Dish> getDishsByCategoryId(Dish dish);
+
+    /**
+     * 根据套餐id获取套餐对应的菜品
+     * @param id
+     * @return
+     */
+    @Select("select d.* from dish d left join setmeal_dish sd on d.id = sd.dish_id where sd.setmeal_id = #{id}")
+    List<Dish> getBySetmealId(Long id);
 }
