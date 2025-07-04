@@ -5,6 +5,7 @@ import com.sky.entity.Employee;
 import com.sky.enumeration.OperationType;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -41,10 +42,10 @@ public interface EmployeeMapper {
      * 获取员工分页表
      */
     @Select("select * from employee limit #{start} ,#{pageSize}")
-    List<Employee> list(Integer start, Integer pageSize);
+    List<Employee> list(@Param("start") Integer start,@Param("pageSize")  Integer pageSize);
 
 
-    @Select("select * from employee where username LIKE CONCAT('%', #{username}, '%')")
+    @Select("select * from employee where username LIKE CONCAT('%',#{username}, '%')")
     Employee getByUsernameLike(String username);
 
     @AutoFill(value = OperationType.UPDATE)

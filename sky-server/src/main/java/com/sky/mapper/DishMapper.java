@@ -5,10 +5,7 @@ import com.sky.entity.Dish;
 import com.sky.entity.DishFlavor;
 import com.sky.enumeration.OperationType;
 import com.sky.vo.DishVO;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -31,7 +28,7 @@ public interface DishMapper {
     void insert(Dish dish);
 
 
-    List<DishVO> pageQuery(Integer start, Integer end, String name, Integer categoryId, Integer status);
+    List<DishVO> pageQuery(@Param("start")  Integer start,@Param("end") Integer end,@Param("name") String name,@Param("categoryId") Integer categoryId,@Param("status") Integer status);
 
     /**
      * 获取菜品数量
@@ -93,7 +90,7 @@ public interface DishMapper {
     void update(Dish dish);
 
     /**
-     * 查询套餐关联的菜品数量
+     * 查询套餐的菜品数据
      * @param dish
      * @return
      */
